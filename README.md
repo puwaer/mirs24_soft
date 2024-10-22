@@ -1,3 +1,3 @@
 # mirs24_soft
 
-mirs24のソフト班のgithunです
+mirs24のソフト班のgithubです
