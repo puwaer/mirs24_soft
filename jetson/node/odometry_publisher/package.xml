@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>odometry_publisher</name>
+  <version>0.1.0</version>
+  <description>Odometry publisher for a differential drive robot</description>
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- ビルドツールの依存関係 -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- ROS 2のランタイム依存関係 -->
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2</depend>
+
+  <!-- テスト用の依存関係（必要なら追加） -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <!-- エクスポート設定 -->
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
