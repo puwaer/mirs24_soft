@@ -4,6 +4,7 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <wiringPi.h>
+#include <chrono>
 
 // エンコーダピン設定
 #define LEFT_ENCODER_PIN_A 17
@@ -49,7 +50,7 @@ public:
         wiringPiISR(LEFT_ENCODER_PIN_A, INT_EDGE_BOTH, &leftEncoderISR);
         wiringPiISR(RIGHT_ENCODER_PIN_A, INT_EDGE_BOTH, &rightEncoderISR);
 
-        timer_ = this->create_wall_timer(100ms, std::bind(&OdometryPublisher::updateOdometry, this));
+        timer_ = this->create_wall_timer(std::chrono::milliseconds(100), std::bind(&OdometryPublisher::updateOdometry, this));
     }
 
 private:
@@ -109,7 +110,7 @@ private:
         transform.transform.translation.x = x_;
         transform.transform.translation.y = y_;
         transform.transform.translation.z = 0.0;
-        
+
         transform.transform.rotation.x = q.x();
         transform.transform.rotation.y = q.y();
         transform.transform.rotation.z = q.z();
