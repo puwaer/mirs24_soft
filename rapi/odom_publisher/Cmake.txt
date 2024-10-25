@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.5)
+project(raspi_odom)
+
+# ROS2の設定
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
+
+# WiringPiの設定
+find_library(WIRINGPI_LIB NAMES wiringPi)
+if(NOT WIRINGPI_LIB)
+    message(FATAL_ERROR "WiringPi library not found.")
+endif()
+
+# ソースファイル
+add_executable(odometry_publisher src/raspi_odom.cpp)
+ament_target_dependencies(odometry_publisher
+  rclcpp
+  nav_msgs
+  geometry_msgs
+  tf2_ros
+)
+
+# WiringPiライブラリをリンク
+target_link_libraries(odometry_publisher ${WIRINGPI_LIB})
+
+install(TARGETS
+  odometry_publisher
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+ament_package()
