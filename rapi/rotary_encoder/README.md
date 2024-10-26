@@ -1,0 +1,1 @@
+#初期はテスト用のrotary_encoder_node.pyになっているのでオドメトリを利用したい場合はodom_encoder_node.pyをrotary_encoder_node.pyに変更してください
