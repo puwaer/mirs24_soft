@@ -44,5 +44,5 @@ void encoder_open() {
   digitalWrite(PIN_ENC_A_R, HIGH);
   digitalWrite(PIN_ENC_B_R, HIGH);
   attachInterrupt(PIN_ENC_A_L, enc_change_l, CHANGE);
-  //attachInterrupt(1, enc_change_r, CHANGE);
+  attachInterrupt(PIN_ENC_A_R, enc_change_r, CHANGE);
 }
