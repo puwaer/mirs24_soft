@@ -26,9 +26,9 @@ static void enc_change_r() {
   b_curr = digitalRead(PIN_ENC_B_R);
 
   if(a_curr == b_curr){ //正転
-    count_l++;
+    count_r++;
   }else{  // 逆転 
-    count_l--;
+    count_r--;
   }
   
 }
