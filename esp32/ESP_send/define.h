@@ -1,7 +1,7 @@
-#define PIN_ENC_A_L 34//青
-#define PIN_ENC_B_L 35//黄
-#define PIN_ENC_A_R 32//青
-#define PIN_ENC_B_R 25//黄,茶色GND,オレンジ5V
+#define PIN_ENC_A_L 34
+#define PIN_ENC_B_L 35
+#define PIN_ENC_A_R 32
+#define PIN_ENC_B_R 25
 
 #define PIN_DIR_R   26
 #define PIN_PWM_R   27

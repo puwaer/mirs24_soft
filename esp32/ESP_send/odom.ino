@@ -1,6 +1,7 @@
-rcl_publisher_t publisher;
-std_msgs__msg__Int32MultiArray msg;
-rclc_executor_t executor;
+rcl_publisher_t l_publisher;
+rcl_publisher_t r_publisher;
+std_msgs__msg__Int32 l_msg;
+std_msgs__msg__Int32 r_msg;
 rclc_support_t support;
 rcl_allocator_t allocator;
 rcl_node_t node;
@@ -13,23 +14,21 @@ void error_loop(){
   }
 }
 
-void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
-{  
+void timer_callback(rcl_timer_t * timer, int64_t last_call_time){  
   RCLC_UNUSED(last_call_time);
   if (timer != NULL) {
+    
+    l_msg.data = count_l;
+    RCSOFTCHECK(rcl_publish(&l_publisher, &l_msg, NULL));
+    r_msg.data = count_r;
+    RCSOFTCHECK(rcl_publish(&r_publisher, &r_msg, NULL));     
 
-    msg.data.data[0] = count_l;
-    msg.data.data[1] = count_r;
-    RCSOFTCHECK(rcl_publish(&publisher, &msg, NULL));
-   
   }
 }
 
 void send_setup() {
-  
   set_microros_transports();
 
-  
   delay(2000);
 
   allocator = rcl_get_default_allocator();
@@ -42,10 +41,18 @@ void send_setup() {
 
   // create publisher
   RCCHECK(rclc_publisher_init_default(
-    &publisher,
+    &l_publisher,
     &node,
-    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32MultiArray),
-    "LR_encoder"));
+    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
+    "L_encoder"));
+
+  
+  RCCHECK(rclc_publisher_init_default(
+    &r_publisher,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
+    "R_encoder"));
+
 
   // create timer,
   const unsigned int timer_timeout = 500;
@@ -59,40 +66,6 @@ void send_setup() {
   RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
   RCCHECK(rclc_executor_add_timer(&executor, &timer));
 
-  msg.data.size = 2; // メッセージ配列のサイズを3に設定
-  msg.data.data = (int32_t *)malloc(msg.data.size * sizeof(int32_t)); // 配列のメモリを確保
-  msg.data.data[0] = 0;
-  msg.data.data[1] = 0;
+  l_msg.data = 0;
+  r_msg.data = 0;
 }
-
-void send_error() {
-  delay(100);
-  RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
