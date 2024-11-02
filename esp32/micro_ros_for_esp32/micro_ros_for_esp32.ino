@@ -56,9 +56,11 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
   if (timer != NULL) {
     //オドメトリ計算
     calculate_odometry();
+    //PID計算
+    PID_control();
     //エンコーダーデータを格納
-    enc_msg.data.data[0] = r_pwm;
-    enc_msg.data.data[1] = count_r;
+    enc_msg.data.data[0] = abc;
+    enc_msg.data.data[1] = def;
     rcl_publish(&enc_pub, &enc_msg, NULL);
     rcl_publish(&odom_pub, &odom_msg, NULL);
     rcl_publish(&tf_broadcaster, &odom_tf, NULL);
