@@ -4,8 +4,8 @@ void encoder_reset() {
 }
 
 static void enc_change_l() {
-  int a_curr = digitalRead(PIN_ENC_A_L);
-  int b_curr = digitalRead(PIN_ENC_B_L);
+  int32_t a_curr = digitalRead(PIN_ENC_A_L);
+  int32_t b_curr = digitalRead(PIN_ENC_B_L);
 
   if(a_curr == b_curr){
     count_l++;
@@ -15,8 +15,8 @@ static void enc_change_l() {
 }
 
 static void enc_change_r() {
-  int a_curr = digitalRead(PIN_ENC_A_R);
-  int b_curr = digitalRead(PIN_ENC_B_R);
+  int32_t a_curr = digitalRead(PIN_ENC_A_R);
+  int32_t b_curr = digitalRead(PIN_ENC_B_R);
 
   if(a_curr == b_curr){
     count_r++;

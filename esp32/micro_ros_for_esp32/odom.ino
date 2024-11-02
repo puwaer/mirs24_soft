@@ -6,8 +6,8 @@ double theta_ = 0;
 void calculate_odometry(){
 
   //エンコーダーの変化量を計算
-  int delta_left = count_l - last_count_l;
-  int delta_right = count_r - last_count_r;
+  int32_t delta_left = count_l - last_count_l;
+  int32_t delta_right = count_r - last_count_r;
 
   last_count_l = count_l;
   last_count_r = count_r;

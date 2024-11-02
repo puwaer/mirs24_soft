@@ -1,12 +1,10 @@
 #include <micro_ros_arduino.h>
-
 #include <stdio.h>
 #include <rcl/rcl.h>
 #include <rcl/error_handling.h>
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
 #include <PID_v1_bc.h>
-
 #include <std_msgs/msg/int32.h>
 #include <std_msgs/msg/int32_multi_array.h>
 #include <nav_msgs/msg/odometry.h>
@@ -14,7 +12,6 @@
 #include <rosidl_runtime_c/string_functions.h>
 #include <tf2_msgs/msg/tf_message.h>
 #include <geometry_msgs/msg/twist.h>
-
 #include "quaternion.h"
 #include "define.h"
 
@@ -26,7 +23,7 @@ geometry_msgs__msg__Twist vel_msg;            //速度指令値
 rcl_publisher_t odom_pub;
 rcl_publisher_t tf_broadcaster;
 rcl_publisher_t enc_pub;
-rcl_subscription_t subscriber;
+rcl_subscription_t cmd_vel_sub;
 
 rclc_executor_t executor;
 rclc_support_t support;
@@ -34,8 +31,8 @@ rcl_allocator_t allocator;
 rcl_node_t node;
 rcl_timer_t timer;
 
-int count_l,count_r;
-int last_count_l,last_count_r;
+int32_t count_l,count_r;
+int32_t last_count_l,last_count_r;
 
 double left_distance;
 double right_distance;
@@ -48,7 +45,7 @@ double l_vel;
 double r_pwm;
 double l_pwm;
 
-int abc,def;
+int32_t abc,def;
 
 void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 {  
@@ -103,7 +100,7 @@ void setup() {
   );
 
   rclc_subscription_init_default(
-    &subscriber,
+    &cmd_vel_sub,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
     "/cmd_vel"
@@ -111,7 +108,7 @@ void setup() {
 
 
 
-  const unsigned int timer_timeout = 100;
+  const uint32_t timer_timeout = 100;
 
   rclc_timer_init_default(
     &timer,
@@ -121,7 +118,7 @@ void setup() {
   );
 
   rclc_executor_init(&executor, &support.context, 2, &allocator);
-  rclc_executor_add_subscription(&executor, &subscriber, &vel_msg, &cmd_vel_Callback, ON_NEW_DATA);
+  rclc_executor_add_subscription(&executor, &cmd_vel_sub, &vel_msg, &cmd_vel_Callback, ON_NEW_DATA);
   rclc_executor_add_timer(&executor, &timer);
 
   odometry_set();
