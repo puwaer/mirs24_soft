@@ -31,9 +31,9 @@ rcl_allocator_t allocator;
 rcl_node_t node;
 rcl_timer_t timer;
 
+//エンコーダー・オドメトリ用の変数
 int32_t count_l,count_r;
 int32_t last_count_l,last_count_r;
-
 double left_distance;
 double right_distance;
 
@@ -45,6 +45,7 @@ double l_vel;
 double r_pwm;
 double l_pwm;
 
+//デバッグ用変数
 int32_t abc,def;
 
 void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
@@ -124,7 +125,7 @@ void setup() {
   odometry_set();
   cmd_vel_set();
 
-  delay(2000);
+  delay(1000);
 
 }
 
