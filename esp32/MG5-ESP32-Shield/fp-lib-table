@@ -1,0 +1,9 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "ESP32-WROOM-32E")(type "KiCad")(uri "${KIPRJMOD}/ESP32-WROOM-32E.pretty")(options "")(descr ""))
+  (lib (name "hole_19pin")(type "KiCad")(uri "${KIPRJMOD}/hole_19pin.pretty")(options "")(descr ""))
+  (lib (name "ESP32")(type "KiCad")(uri "${KIPRJMOD}/ESP32.pretty")(options "")(descr ""))
+  (lib (name "XH-5pin")(type "KiCad")(uri "${KIPRJMOD}/XH-5pin.pretty")(options "")(descr ""))
+  (lib (name "XH")(type "KiCad")(uri "${KIPRJMOD}/XH.pretty")(options "")(descr ""))
+  (lib (name "Free-hole")(type "KiCad")(uri "${KIPRJMOD}/Free-hole.pretty")(options "")(descr ""))
+)
